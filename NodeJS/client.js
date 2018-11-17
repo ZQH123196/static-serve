@@ -1,5 +1,4 @@
 const net = require('net');
-const readline = require('readline');
 
 const address = {
   host: '127.0.0.1',
@@ -14,16 +13,16 @@ const socket_option = {
 
 let client_socket = new net.Socket(socket_option);
 
-let client = net.createConnection(address);
+client_socket.connect(address)
 
-client.on('connect', () => {
+client_socket.on('connecting', () => {
   console.log(`connect to ${address.host}:${address.port}`);
 });
 
-client.on('error', () => {
+client_socket.on('error', () => {
   console.error('createConnection error! client exit~');
 });
 
 
 process.stdin.setEncoding('utf-8');
-process.stdin.pipe(client);
+process.stdin.pipe(client_socket);
